@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selamat Ulang Tahun</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.8;
+        color: #2c3e50;
+        background: radial-gradient(
+            circle at 20% 50%,
+            rgba(120, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 80%,
+            rgba(120, 219, 255, 0.3) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Animated background particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        animation: float 8s infinite ease-in-out;
+      }
+
+      .particle:nth-child(odd) {
+        animation-direction: reverse;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px) rotate(0deg);
+          opacity: 0.7;
+        }
+        33% {
+          transform: translateY(-30px) translateX(20px) rotate(120deg);
+          opacity: 1;
+        }
+        66% {
+          transform: translateY(-60px) translateX(-20px) rotate(240deg);
+          opacity: 0.8;
+        }
+      }
+
+      /* Aurora effect */
+      .aurora {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        background: radial-gradient(
+            ellipse at top,
+            rgba(255, 0, 150, 0.1) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse at bottom,
+            rgba(0, 255, 255, 0.1) 0%,
+            transparent 70%
+          );
+        animation: aurora 10s infinite alternate;
+      }
+
+      @keyframes aurora {
+        0% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 0.3;
+        }
+      }
+
+      /* Welcome overlay */
+      .welcome-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.95),
+          rgba(118, 75, 162, 0.95)
+        );
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(10px);
+        transition: all 1s ease-in-out;
+      }
+
+      .welcome-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .welcome-content {
+        text-align: center;
+        color: white;
+        animation: welcomeFloat 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes welcomeFloat {
+        0% {
+          transform: translateY(0px);
+        }
+        100% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .welcome-title {
+        font-family: "Dancing Script", cursive;
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .welcome-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 40px;
+        opacity: 0.9;
+        font-weight: 300;
+      }
+
+      .enter-btn {
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.1)
+        );
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .enter-btn:hover {
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.3),
+          rgba(255, 255, 255, 0.2)
+        );
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .music-note {
+        font-size: 2rem;
+        animation: bounce 1s infinite;
+        margin: 0 10px;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        padding: 80px 60px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1),
+          0 0 0 1px rgba(255, 255, 255, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: cardFloat 6s ease-in-out infinite;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      @keyframes cardFloat {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-5px) rotate(0.5deg);
+        }
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+      }
+
+      .header::after {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.5),
+          transparent
+        );
+      }
+
+      .title {
+        font-family: "Dancing Script", cursive;
+        font-size: 4rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+          0 0 20px rgba(255, 255, 255, 0.5);
+        background: linear-gradient(45deg, #fff, #f0f0f0, #fff, #e0e0e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: titleGlow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes titleGlow {
+        0% {
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        100% {
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 255, 255, 0.8);
+        }
+      }
+
+      .subtitle {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.3rem;
+        font-weight: 300;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .content {
+        font-size: 1.15rem;
+        line-height: 1.9;
+        text-align: justify;
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        position: relative;
+        z-index: 1;
+      }
+
+      .content p {
+        margin-bottom: 28px;
+        animation: fadeInUp 1s ease-out;
+        animation-fill-mode: both;
+        padding: 0 5px;
+      }
+
+      .content p:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .content p:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+      .content p:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+      .content p:nth-child(4) {
+        animation-delay: 0.8s;
+      }
+      .content p:nth-child(5) {
+        animation-delay: 1s;
+      }
+      .content p:nth-child(6) {
+        animation-delay: 1.2s;
+      }
+      .content p:nth-child(7) {
+        animation-delay: 1.4s;
+      }
+      .content p:nth-child(8) {
+        animation-delay: 1.6s;
+      }
+      .content p:nth-child(9) {
+        animation-delay: 1.8s;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .highlight {
+        background: linear-gradient(
+          120deg,
+          rgba(255, 206, 84, 0.4) 0%,
+          rgba(255, 154, 158, 0.4) 100%
+        );
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(255, 206, 84, 0.2);
+        position: relative;
+      }
+
+      .highlight::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        border-radius: 6px;
+        pointer-events: none;
+      }
+
+      .quote {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        padding: 25px 30px;
+        border-left: 4px solid rgba(255, 255, 255, 0.6);
+        margin: 30px 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 0 15px 15px 0;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quote::before {
+        content: '"';
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        font-size: 4rem;
+        color: rgba(255, 255, 255, 0.3);
+        font-family: "Playfair Display", serif;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 50px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+      }
+
+      .signature {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 15px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .hearts {
+        font-size: 2rem;
+        animation: heartbeat 2s infinite;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+      }
+
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        75% {
+          transform: scale(1.15);
+        }
+      }
+
+      .floating-elements {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .floating-element {
+        position: absolute;
+        font-size: 24px;
+        animation: floatAround 12s infinite ease-in-out;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+      }
+
+      @keyframes floatAround {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px) rotate(0deg);
+          opacity: 0.7;
+        }
+        25% {
+          transform: translateY(-40px) translateX(30px) rotate(90deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(-20px) translateX(-30px) rotate(180deg);
+          opacity: 0.8;
+        }
+        75% {
+          transform: translateY(-60px) translateX(20px) rotate(270deg);
+          opacity: 0.9;
+        }
+      }
+
+      .name-input {
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.1)
+        );
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 12px;
+        padding: 8px 15px;
+        font-weight: 600;
+        color: #fff;
+        display: inline-block;
+        margin: 0 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .name-input:hover {
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.3),
+          rgba(255, 255, 255, 0.2)
+        );
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Music controls */
+      .music-controls {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 50px;
+        padding: 12px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .music-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .music-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .welcome-title {
+          font-size: 3rem;
+        }
+
+        .container {
+          padding: 20px 15px;
+        }
+
+        .card {
+          padding: 50px 30px;
+          margin: 20px 0;
+        }
+
+        .title {
+          font-size: 3rem;
+        }
+
+        .content {
+          font-size: 1.05rem;
+          text-align: left;
+        }
+
+        .music-controls {
+          bottom: 20px;
+          right: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+      <div class="welcome-content">
+        <div class="welcome-title">
+          <span class="music-note">♪</span>
+          Selamat Datang
+          <span class="music-note">♫</span>
+        </div>
+        <div class="welcome-subtitle">Pesan spesial sedang menunggu Anda</div>
+        <button class="enter-btn" id="enterBtn">
+          🎵 Masuk dengan Musik 🎵
+        </button>
+      </div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="aurora"></div>
+    <div class="particles" id="particles"></div>
+    <div class="floating-elements" id="floating-elements"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="card">
+        <div class="header">
+          <h1 class="title">Selamat Ulang Tahun</h1>
+          <p class="subtitle">Untuk seseorang yang sangat berharga</p>
+        </div>
+
+        <div class="content">
+          <p>
+            <strong
+              >Untuk <span class="name-input">[masukkan nama]</span>, di hari
+              ulang tahunmu yang berbeda kali ini…</strong
+            >
+          </p>
+
+          <p>
+            Hari ini kamu bertambah usia. Mungkin di antara kue, doa, dan
+            pesan-pesan hangat dari banyak orang, ada ruang kosong yang tidak
+            bisa diisi siapa pun — ruang yang dulu dihuni oleh sosok yang begitu
+            berarti bagimu. Aku tahu, kehilangan itu masih baru, masih segar.
+            Dan aku ingin kamu tahu…
+            <span class="highlight">kamu nggak sendiri</span>. Aku tahu hari ini
+            bukan hanya tentang ulang tahunmu, tapi juga tentang kamu yang
+            sedang belajar untuk tetap kuat sambil merangkul luka.
+          </p>
+
+          <p>
+            Tahun ini, kamu tumbuh tidak hanya dalam angka, tapi dalam
+            kedalaman. Kamu tumbuh dengan belajar menghadapi kehilangan,
+            mengolah rasa yang tidak mudah dijelaskan, dan tetap bangun setiap
+            pagi dengan keberanian yang tidak semua orang lihat. Kamu mungkin
+            merasa rapuh, tapi aku justru melihat kekuatan besar dalam caramu
+            bertahan.
+            <span class="highlight"
+              >Kelembutanmu tidak membuatmu lemah — itu adalah bentuk paling
+              jujur dari kekuatan.</span
+            >
+          </p>
+
+          <p>
+            Di hari ulang tahunmu ini, aku nggak akan sekadar mendoakan
+            kebahagiaan. Aku juga berdoa agar kamu diberi ruang yang cukup untuk
+            berduka dengan tenang. Bahwa kamu tidak merasa tergesa-gesa untuk
+            "baik-baik saja". Bahwa kamu diizinkan untuk merasakan semuanya —
+            sedih, rindu, kecewa — tanpa merasa bersalah.
+            <span class="highlight"
+              >Kamu punya hak untuk memeluk kehilangan itu sebelum benar-benar
+              melepaskannya.</span
+            >
+          </p>
+
+          <p>
+            Tapi aku juga ingin kamu ingat satu hal penting: kamu tidak
+            ditinggalkan dalam kegelapan. Sosok yang kamu cintai — kakekmu —
+            mungkin sudah tidak hadir dalam bentuk yang sama, tapi cintanya akan
+            selalu hidup di dalam dirimu. Dalam nilai-nilai yang dia wariskan,
+            dalam senyummu yang mengingatkannya, dalam langkah-langkah yang akan
+            terus kamu ambil ke depan.
+            <span class="highlight"
+              >Dia tidak pergi… dia hanya pindah tempat, ke dalam hatimu yang
+              hangat.</span
+            >
+          </p>
+
+          <p>
+            Aku bersyukur kamu masih di sini — masih bernafas, masih melangkah,
+            meskipun dunia sedang tidak ramah. Kamu kuat, bahkan saat kamu
+            merasa lelah. Kamu luar biasa, bahkan saat kamu tidak merasa
+            demikian. Hari ini, semoga kamu bisa duduk sejenak, menatap langit,
+            dan berkata pada dirimu sendiri:
+          </p>
+
+          <div class="quote">
+            <p>"Terima kasih, aku sudah sampai sejauh ini."</p>
+          </div>
+
+          <p>
+            Dan kamu pantas diberi pelukan hangat, oleh semesta, oleh
+            orang-orang yang mencintaimu… termasuk aku.
+          </p>
+
+          <p>
+            Selamat ulang tahun, <span class="name-input">[nama dia]</span>.
+            Terima kasih sudah tetap menjadi kamu yang penuh kasih, walau dunia
+            kadang terasa berat. Terima kasih sudah berjalan sejauh ini,
+            meskipun dengan air mata yang kadang diam-diam jatuh. Aku berharap
+            tahun ini kamu diberi lebih banyak pelukan, ruang, keajaiban kecil,
+            dan keberanian untuk terus mencintai hidup… bahkan saat hidup sedang
+            tidak sempurna.
+          </p>
+
+          <p>
+            <span class="highlight"
+              >Kamu adalah hadiah, bukan hanya hari ini, tapi setiap hari kamu
+              hadir di dunia ini.</span
+            >
+            Dan aku bangga bisa mengenalmu, menyayangimu, dan melihat kamu
+            tumbuh menjadi pribadi yang begitu dalam. Selamat bertambah usia.
+            Jangan takut untuk bersedih… dan jangan lupa kamu berhak untuk
+            bahagia.
+          </p>
+        </div>
+
+        <div class="footer">
+          <div class="signature">Dengan cinta dan doa terbaik</div>
+          <div class="hearts">💝 ✨ 🌟 ✨ 💝</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Music Controls -->
+    <div class="music-controls">
+      <button class="music-btn" id="musicToggle" title="Pause/Play Music">
+        ⏸️
+      </button>
+      <button class="music-btn" id="volumeToggle" title="Mute/Unmute">
+        🔊
+      </button>
+    </div>
+
+    <!-- Audio Element for Slipping Through My Fingers -->
+    <audio id="backgroundMusic" autoplay loop>
+      <source src="./musik.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <script>
+      // Create floating particles
+      function createParticles() {
+        const particlesContainer = document.getElementById("particles");
+        const numberOfParticles = 30;
+
+        for (let i = 0; i < numberOfParticles; i++) {
+          const particle = document.createElement("div");
+          particle.className = "particle";
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.top = Math.random() * 100 + "%";
+          particle.style.width = Math.random() * 4 + 2 + "px";
+          particle.style.height = particle.style.width;
+          particle.style.animationDelay = Math.random() * 8 + "s";
+          particle.style.animationDuration = Math.random() * 4 + 6 + "s";
+          particlesContainer.appendChild(particle);
+        }
+      }
+
+      // Create floating elements
+      function createFloatingElements() {
+        const container = document.getElementById("floating-elements");
+        const elements = [
+          "💝",
+          "✨",
+          "🌟",
+          "💖",
+          "🎂",
+          "🎈",
+          "🌸",
+          "💫",
+          "🦋",
+          "🌙",
+        ];
+
+        for (let i = 0; i < 12; i++) {
+          const element = document.createElement("div");
+          element.className = "floating-element";
+          element.textContent =
+            elements[Math.floor(Math.random() * elements.length)];
+          element.style.left = Math.random() * 100 + "%";
+          element.style.top = Math.random() * 100 + "%";
+          element.style.animationDelay = Math.random() * 12 + "s";
+          element.style.animationDuration = Math.random() * 6 + 8 + "s";
+          container.appendChild(element);
+        }
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        createParticles();
+        createFloatingElements();
+
+        // Audio functionality
+        const backgroundMusic = document.getElementById("backgroundMusic");
+        let musicPlaying = false;
+
+        function startMusic() {
+          backgroundMusic.play();
+          musicPlaying = true;
+          document.getElementById("musicToggle").textContent = "⏸️";
+        }
+
+        function stopMusic() {
+          backgroundMusic.pause();
+          musicPlaying = false;
+          document.getElementById("musicToggle").textContent = "🎵";
+        }
+
+        // Welcome overlay functionality
+        const welcomeOverlay = document.getElementById("welcomeOverlay");
+        const enterBtn = document.getElementById("enterBtn");
+
+        enterBtn.addEventListener("click", function () {
+          startMusic();
+          welcomeOverlay.classList.add("hidden");
+
+          // Add entrance animation to content
+          setTimeout(() => {
+            document.querySelector(".card").style.animation =
+              "cardFloat 6s ease-in-out infinite, fadeInUp 1s ease-out";
+          }, 500);
+        });
+
+        // Music controls
+        const musicToggle = document.getElementById("musicToggle");
+        const volumeToggle = document.getElementById("volumeToggle");
+
+        musicToggle.addEventListener("click", function () {
+          if (musicPlaying) {
+            stopMusic();
+          } else {
+            startMusic();
+          }
+        });
+
+        volumeToggle.addEventListener("click", function () {
+          if (backgroundMusic.muted) {
+            backgroundMusic.muted = false;
+            this.textContent = "🔊";
+          } else {
+            backgroundMusic.muted = true;
+            this.textContent = "🔇";
+          }
+        });
+
+        // Interactive name editing
+        document.querySelectorAll(".name-input").forEach((nameField) => {
+          nameField.addEventListener("click", function () {
+            const currentName = this.textContent.replace(/\[|\]/g, "");
+            const newName = prompt("Masukkan nama:", currentName);
+            if (newName && newName.trim()) {
+              this.textContent = newName.trim();
+
+              // Add sparkle effect
+              this.style.animation = "sparkle 0.6s ease-in-out";
+              setTimeout(() => {
+                this.style.animation = "";
+              }, 600);
+            }
+          });
+        });
+
+        // Add sparkle animation
+        const style = document.createElement("style");
+        style.textContent = `
+          @keyframes sparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+          }
+        `;
+        document.head.appendChild(style);
+
+        // Add scroll effects
+        window.addEventListener("scroll", function () {
+          const scrolled = window.pageYOffset;
+          const parallax = document.querySelector(".aurora");
+          const speed = scrolled * 0.5;
+          parallax.style.transform = `translateY(${speed}px)`;
+        });
+
+        // Add mouse follow effect for particles
+        document.addEventListener("mousemove", function (e) {
+          const particles = document.querySelectorAll(".particle");
+          const mouseX = e.clientX / window.innerWidth;
+          const mouseY = e.clientY / window.innerHeight;
+
+          particles.forEach((particle, index) => {
+            const speed = ((index % 3) + 1) * 0.01;
+            const x = (mouseX - 0.5) * speed * 100;
+            const y = (mouseY - 0.5) * speed * 100;
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+          });
+        });
+
+        // Add floating hearts on click
+        document.addEventListener("click", function (e) {
+          if (
+            e.target.classList.contains("name-input") ||
+            e.target.classList.contains("enter-btn")
+          ) {
+            createFloatingHeart(e.clientX, e.clientY);
+          }
+        });
+
+        function createFloatingHeart(x, y) {
+          const heart = document.createElement("div");
+          heart.innerHTML = "💖";
+          heart.style.position = "fixed";
+          heart.style.left = x + "px";
+          heart.style.top = y + "px";
+          heart.style.fontSize = "20px";
+          heart.style.pointerEvents = "none";
+          heart.style.zIndex = "1000";
+          heart.style.animation = "floatUp 2s ease-out forwards";
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 2000);
+        }
+
+        // Add floatUp animation
+        const floatUpStyle = document.createElement("style");
+        floatUpStyle.textContent = `
+          @keyframes floatUp {
+            0% {
+              opacity: 1;
+              transform: translateY(0px) scale(1);
+            }
+            100% {
+              opacity: 0;
+              transform: translateY(-100px) scale(1.5);
+            }
+          }
+        `;
+        document.head.appendChild(floatUpStyle);
+      });
+
+      // Prevent context menu on right click
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+
+      // Add keyboard shortcuts
+      document.addEventListener("keydown", function (e) {
+        if (e.code === "Space") {
+          e.preventDefault();
+          const musicToggle = document.getElementById("musicToggle");
+          musicToggle.click();
+        }
+        if (e.code === "KeyM") {
+          const volumeToggle = document.getElementById("volumeToggle");
+          volumeToggle.click();
+        }
+      });
+    </script>
+  </body>
+</html>
